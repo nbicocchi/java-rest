@@ -1,4 +1,4 @@
-package it.oopcourse.rest.advanced;
+package com.nbicocchi.oopcourse.rest.advanced;
 
 import java.time.LocalDate;
 import java.util.UUID;

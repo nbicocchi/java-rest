@@ -1,4 +1,4 @@
-package it.oopcourse.rest.advanced;
+package com.nbicocchi.oopcourse.rest.advanced;
 
 import java.io.IOException;
 import java.nio.file.Files;

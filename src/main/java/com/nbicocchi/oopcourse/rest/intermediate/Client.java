@@ -1,4 +1,4 @@
-package it.oopcourse.rest.intermediate;
+package com.nbicocchi.oopcourse.rest.intermediate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kong.unirest.Unirest;

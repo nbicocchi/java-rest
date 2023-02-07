@@ -1,4 +1,4 @@
-package it.oopcourse.utils;
+package com.nbicocchi.oopcourse.utils;
 
 import java.io.File;
 import java.nio.ByteBuffer;

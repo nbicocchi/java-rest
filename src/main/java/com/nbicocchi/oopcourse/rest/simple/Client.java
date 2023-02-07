@@ -1,4 +1,4 @@
-package it.oopcourse.rest.simple;
+package com.nbicocchi.oopcourse.rest.simple;
 
 import kong.unirest.Unirest;
 import org.slf4j.Logger;

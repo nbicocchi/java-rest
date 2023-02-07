@@ -1,10 +1,10 @@
-package it.oopcourse.rest.advanced;
+package com.nbicocchi.oopcourse.rest.advanced;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import it.oopcourse.utils.Utils;
+import com.nbicocchi.oopcourse.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

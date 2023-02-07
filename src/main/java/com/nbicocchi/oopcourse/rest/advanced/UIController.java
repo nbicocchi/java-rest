@@ -1,4 +1,4 @@
-package it.oopcourse.rest.advanced;
+package com.nbicocchi.oopcourse.rest.advanced;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
