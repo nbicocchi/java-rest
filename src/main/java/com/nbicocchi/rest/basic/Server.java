@@ -1,4 +1,4 @@
-package com.nbicocchi.oopcourse.rest.simple;
+package com.nbicocchi.rest.basic;
 
 import static spark.Spark.get;
 import static spark.Spark.port;

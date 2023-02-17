@@ -1,4 +1,4 @@
-package com.nbicocchi.oopcourse.rest.intermediate;
+package com.nbicocchi.rest.intermediate;
 
 public class LocalTime {
     String name;

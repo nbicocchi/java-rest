@@ -1,10 +1,10 @@
-package com.nbicocchi.oopcourse.rest.advanced;
+package com.nbicocchi.rest.advanced;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import com.nbicocchi.oopcourse.utils.Utils;
+import com.nbicocchi.rest.common.UtilsDB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +37,8 @@ public class Server {
 
     private void dbConnection() {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName(Utils.JDBC_Driver_MySQL);
-        config.setJdbcUrl(Utils.JDBC_URL_MySQL);
+        config.setDriverClassName(UtilsDB.JDBC_Driver_MySQL);
+        config.setJdbcUrl(UtilsDB.JDBC_URL_MySQL);
         config.setLeakDetectionThreshold(2000);
         dataSource = new HikariDataSource(config);
     }
@@ -112,7 +112,7 @@ public class Server {
                  PreparedStatement statement = connection.prepareStatement("SELECT * FROM planes")) {
                 try (ResultSet rs = statement.executeQuery()) {
                     while (rs.next()) {
-                        planes.add(new Plane(UUID.fromString(rs.getString("uuid")), rs.getString("name"), rs.getDouble("length"), rs.getDouble("wingspan"), PlaneUtils.convertSQLDateToLocalDate(rs.getDate("firstFlight")), rs.getString("category")));
+                        planes.add(new Plane(UUID.fromString(rs.getString("uuid")), rs.getString("name"), rs.getDouble("length"), rs.getDouble("wingspan"), UtilsDB.convertSQLDateToLocalDate(rs.getDate("firstFlight")), rs.getString("category")));
                     }
                 }
             }
@@ -129,7 +129,7 @@ public class Server {
                 statement.setString(2, request.queryParams("max"));
                 try (ResultSet rs = statement.executeQuery()) {
                     while (rs.next()) {
-                        planes.add(new Plane(UUID.fromString(rs.getString("uuid")), rs.getString("name"), rs.getDouble("length"), rs.getDouble("wingspan"), PlaneUtils.convertSQLDateToLocalDate(rs.getDate("firstFlight")), rs.getString("category")));
+                        planes.add(new Plane(UUID.fromString(rs.getString("uuid")), rs.getString("name"), rs.getDouble("length"), rs.getDouble("wingspan"), UtilsDB.convertSQLDateToLocalDate(rs.getDate("firstFlight")), rs.getString("category")));
                     }
                 }
             }
@@ -149,7 +149,9 @@ public class Server {
                  PreparedStatement statement = connection.prepareStatement("SELECT * FROM planes WHERE uuid=?")) {
                 statement.setString(1, uuid.toString());
                 try (ResultSet rs = statement.executeQuery()) {
-                    plane = new Plane(UUID.fromString(rs.getString("uuid")), rs.getString("name"), rs.getDouble("length"), rs.getDouble("wingspan"), PlaneUtils.convertSQLDateToLocalDate(rs.getDate("firstFlight")), rs.getString("category"));
+                    plane = new Plane(UUID.fromString(rs.getString("uuid")), rs.getString("name"), rs.getDouble(
+                            "length"), rs.getDouble("wingspan"), UtilsDB.convertSQLDateToLocalDate(rs.getDate(
+                                    "firstFlight")), rs.getString("category"));
                 }
             }
             return mapper.writeValueAsString(plane);

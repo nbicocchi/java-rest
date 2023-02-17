@@ -1,35 +1,29 @@
-package com.nbicocchi.oopcourse.utils;
+package com.nbicocchi.rest.common;
 
-import java.io.File;
 import java.nio.ByteBuffer;
-import java.nio.file.Paths;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.TimeZone;
 import java.util.UUID;
 
-public class Utils {
+public class UtilsDB {
     public static final String JDBC_Driver_H2 = "org.h2.Driver";
-    public static final String JDBC_URL_H2_Persistent = String.format("jdbc:h2:%s", Paths.get(Utils.ooprogrammingdir(),
-            "ooprogramming.h2"));
+    public static final String JDBC_URL_H2_Persistent = String.format("jdbc:h2:%s", getDesktopDir(), "OOPCourse.h2");
     public static final String JDBC_URL_H2_Memory = "jdbc:h2:mem:test";
-
     public static final String JDBC_Driver_SQLite = "org.sqlite.JDBC";
-    public static final String JDBC_URL_SQLite = String.format("jdbc:sqlite:%s", Paths.get(Utils.ooprogrammingdir(), "ooprogramming.sqlite"));
-
+    public static final String JDBC_URL_SQLite = String.format("jdbc:sqlite:%s", getDesktopDir(), "OOPCourse.sqlite");
     public static final String JDBC_Driver_MySQL = "com.mysql.cj.jdbc.Driver";
     public static final String JDBC_URL_MySQL = "jdbc:mysql://localhost:3306/jdbc_schema?user=nicola&password=qwertyuio&serverTimezone=" + TimeZone.getDefault().getID();
 
-    public static String desktopdir() {
-        String path = String.format("%s%s%s", System.getProperty("user.home"), System.getProperty("file.separator"),
+    public static String getDesktopDir() {
+        return String.format("%s%s%s", System.getProperty("user.home"), System.getProperty("file.separator"),
                 "Desktop");
-        new File(path).mkdirs();
-        return path;
     }
 
-    public static String ooprogrammingdir() {
-        String path = String.format("%s%s%s%s%s", System.getProperty("user.home"), System.getProperty("file.separator"),
-                "Desktop", System.getProperty("file.separator"), "ooprogramming");
-        new File(path).mkdirs();
-        return path;
+    public static LocalDate convertSQLDateToLocalDate(Date SQLDate) {
+        java.util.Date date = new java.util.Date(SQLDate.getTime());
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     public static UUID asUUID(byte[] bytes) {

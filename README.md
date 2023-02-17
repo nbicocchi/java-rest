@@ -1,1 +1,1 @@
-# ooprogramming-rest
+# A collection of Java REST examples
