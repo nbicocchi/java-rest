@@ -16,19 +16,12 @@ import java.util.UUID;
 import static spark.Spark.*;
 
 public class Server {
-    HikariDataSource dataSource;
-    ObjectMapper mapper;
-
     static final String SUCCESS = "{status: ok}";
     static final String FAILURE = "{status: failed}";
     static Logger logger = LoggerFactory.getLogger(Server.class);
 
-    public void init() {
-        Thread.currentThread().setName("REST-Server");
-        initMapper();
-        dbConnection();
-        run();
-    }
+    HikariDataSource dataSource;
+    ObjectMapper mapper;
 
     public void initMapper() {
         mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
@@ -44,6 +37,10 @@ public class Server {
     }
 
     public void run() {
+        // init object mapper and database
+        initMapper();
+        dbConnection();
+
         // Start embedded server at this port
         port(8080);
 
@@ -105,7 +102,7 @@ public class Server {
         });
 
         // GET - get all
-        // curl -X GET http://localhost:8080/plane
+        // curl -X GET http://localhost:8080/plane/all
         get("/plane/all", (request, response) -> {
             List<Plane> planes = new ArrayList<>();
             try (Connection connection = dataSource.getConnection();
@@ -171,7 +168,6 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        Server server = new Server();
-        server.init();
+        new Server().run();
     }
 }
